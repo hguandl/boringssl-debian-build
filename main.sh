@@ -7,6 +7,8 @@ source boringssl.sh
 source nginx.sh
 source upload.sh
 
+ls $CTRL_BASE
+
 build_only() {
   get_boringssl_src "/opt"
   build_boringssl "/opt"
