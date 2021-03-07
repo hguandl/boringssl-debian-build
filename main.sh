@@ -7,27 +7,38 @@ source boringssl.sh
 source nginx.sh
 source upload.sh
 
+build_only() {
+  get_boringssl_src "/opt"
+  build_boringssl "/opt"
+  install_boringssl "/opt" "/opt/boringssl"
+
+  get_nginx_src "/opt"
+  build_nginx "/opt"
+  install_nginx "/opt" "/root"
+}
+
+upload_only() {
+  setup_keys $1 $2
+  pushd /root
+  filename=$(ls -1 *.deb)
+  upload_to_bintray $filename
+  popd
+}
+
 case $1 in
-
   "build")
-    get_boringssl_src "/opt"
-    build_boringssl "/opt"
-    install_boringssl "/opt" "/opt/boringssl"
-
-    get_nginx_src "/opt"
-    build_nginx "/opt"
-    install_nginx "/opt" "/root"
+    build_only
     ;;
 
   "upload")
-    setup_keys $2 $3
-    pushd /root
-    filename=$(ls -1 *.deb)
-    upload_to_bintray $filename
-    popd
+    upload_only $2 $3
+    ;;
+
+  "deploy")
+    build_only
+    upload_only $2 $3
     ;;
 
   *)
-    exit
     ;;
 esac

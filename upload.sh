@@ -11,7 +11,7 @@ setup_keys() {
 }
 
 upload_to_bintray() {
-  curl -n \
+  curl -n -fsSL \
     -X PUT \
     -H "X-Bintray-Package: buster" \
     -H "X-Bintray-Version: $TODAY" \

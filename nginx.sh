@@ -73,7 +73,7 @@ build_nginx() {
 install_nginx() {
   pushd $CTRL_BASE/checkinstall
 
-  checkinstall --nodoc --install=no \
+  checkinstall --nodoc --install=no -y \
   --pakdir="$2" \
   --maintainer=hguandl@gmail.com \
   --pkgname=nginx-quic \
