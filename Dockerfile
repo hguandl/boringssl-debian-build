@@ -2,7 +2,7 @@ FROM debian:buster
 
 RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
   build-essential \
   checkinstall/buster-backports \
   cmake \
@@ -21,5 +21,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY . /root/nginx-quic-debian-build
 WORKDIR /root/nginx-quic-debian-build
+RUN ls /root/nginx-quic-debian-build
 
 ENTRYPOINT [ "/root/nginx-quic-debian-build/main.sh" ]
