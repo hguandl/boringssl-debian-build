@@ -4,41 +4,5 @@ mkdir -p /usr/lib/nginx/modules
 mkdir -p /var/log/nginx
 mkdir -p /var/cache/nginx
 
-mkdir -p /usr/lib/systemd/system
-cat <<EOT > /usr/lib/systemd/system/nginx-quic.service
-[Unit]
-Description=nginx - high performance web server
-Documentation=http://nginx.org/en/docs/
-After=network-online.target remote-fs.target nss-lookup.target
-Wants=network-online.target
-
-[Service]
-Type=forking
-PIDFile=/var/run/nginx.pid
-ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
-ExecReload=/bin/kill -s HUP $MAINPID
-ExecStop=/bin/kill -s TERM $MAINPID
-
-[Install]
-WantedBy=multi-user.target
-EOT
-
-
-mkdir -p /etc/logrotate.d
-cat <<EOT > /etc/logrotate.d/nginx-quic
-/var/log/nginx/*.log {
-    daily
-    missingok
-    rotate 52
-    compress
-    delaycompress
-    notifempty
-    create 640 nginx adm
-    sharedscripts
-    postrotate
-        if [ -f /var/run/nginx.pid ]; then
-            kill -USR1 `cat /var/run/nginx.pid`
-        fi
-    endscript
-}
-EOT
+systemctl daemon-reload
+systemctl enable nginx-quic

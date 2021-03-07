@@ -5,14 +5,13 @@ get_nginx_src() {
   curl -fsSL https://hg.nginx.org/nginx-quic/archive/tip.tar.gz | tar -xzC "$1"
   NGINX_BUILD=$(find "$1" -maxdepth 1 -type d -name 'nginx-quic-*' | cut -d - -f 3)
   curl -fsSL https://github.com/google/ngx_brotli/archive/v1.0.0rc.tar.gz | tar -xzC "$1"
-  curl -fsSL https://github.com/kn007/patch/raw/master/Enable_BoringSSL_OCSP.patch -o "$1"/Enable_BoringSSL_OCSP.patch
 }
 
 # $1: src base directory
 build_nginx() {
   pushd "$1"/nginx-quic-$NGINX_BUILD
 
-  patch -p01 -i "$1"/Enable_BoringSSL_OCSP.patch
+  patch -p01 -i $CTRL_BASE/patches/*.patch
 
   ./auto/configure \
     --with-cc-opt='-O2 -fstack-protector-strong -DTCP_FASTOPEN=23 -I../boringssl/include' \
@@ -84,7 +83,7 @@ install_nginx() {
   --requires="libbrotli1, libjemalloc2, libpcre3, zlib1g" \
   --conflicts="nginx-common, nginx-core, nginx" \
   --replaces="nginx-common, nginx-core, nginx" \
-  make -C "$1"/nginx-quic-$NGINX_BUILD install
+  ./install_nginx.sh "$1"/nginx-quic-$NGINX_BUILD
 
   popd
 }

@@ -3,7 +3,3 @@
 rm -rf /usr/lib/nginx/modules
 rm -rf /var/cache/nginx
 rm -rf /var/log/nginx
-rm -rf /etc/nginx
-
-rm -f /usr/lib/systemd/system/nginx-quic.service
-rm -f /etc/logrotate.d/nginx-quic
