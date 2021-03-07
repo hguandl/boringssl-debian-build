@@ -11,7 +11,8 @@ get_nginx_src() {
 build_nginx() {
   pushd "$1"/nginx-quic-$NGINX_BUILD
 
-  patch -p01 -i $CTRL_BASE/patches/*.patch
+  patch -p01 -i $CTRL_BASE/patches/00-no-conf.default.patch
+  patch -p01 -i $CTRL_BASE/patches/10-enable-boringssl-ocsp.patch
 
   ./auto/configure \
     --with-cc-opt='-O2 -fstack-protector-strong -DTCP_FASTOPEN=23 -I../boringssl/include' \
