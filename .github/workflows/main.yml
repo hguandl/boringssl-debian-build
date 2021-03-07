@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: deploy
       id: deploy
-      uses: hguandl/nginx-quic-Build
+      uses: hguandl/nginx-quic-Build@main
       with:
         api-user: 'hguandl'
         api-key: ${{ secrets.BINTRAY_API_KEY }}
