@@ -4,6 +4,7 @@ RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/so
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
   build-essential \
+  ca-certificates \
   checkinstall/buster-backports \
   cmake \
   curl \
