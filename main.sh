@@ -18,10 +18,9 @@ build_only() {
 }
 
 upload_only() {
-  setup_keys $1 $2
   pushd /root
   filename=$(ls -1 *.deb)
-  upload_to_bintray $filename
+  upload_to_bintray $filename $1 $2
   popd
 }
 

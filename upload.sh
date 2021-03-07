@@ -1,17 +1,11 @@
 #!/bin/bash
 
-# $1: API_USER
-# $2: API_KEY
-setup_keys() {
-  if [ -z $1 ] || [ -z $2 ]; then
-    exit 1
-  fi
-
-  echo -e "machine api.bintray.com\n  login $1\n  password $2" > /root/.netrc
-}
-
+# $1: filename
+# $2: API_USER
+# $3: API_KEY
 upload_to_bintray() {
-  curl -n -fsSL \
+  curl -fsSL \
+    -u "$2:$3" \
     -X PUT \
     -H "X-Bintray-Package: buster" \
     -H "X-Bintray-Version: $TODAY" \
