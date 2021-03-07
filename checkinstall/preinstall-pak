@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if ! getent group nginx >/dev/null; then
+    addgroup --system nginx >/dev/null
+fi
+
+if ! getent passwd nginx >/dev/null; then
+    adduser \
+        --system \
+        --disabled-login \
+        --ingroup nginx \
+        --no-create-home \
+        --home /nonexistent \
+        --gecos "nginx user" \
+        --shell /bin/false \
+        nginx  >/dev/null
+fi
