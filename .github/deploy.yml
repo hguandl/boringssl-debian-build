@@ -1,0 +1,22 @@
+name: Deploy
+desciption: 'Build and upload deb package'
+
+inputs:
+  api-user:
+    desciption: 'Username of Bintray'
+    required: true
+  api-key:
+    desciption: 'API token for the user in Bintray'
+    required: true
+
+on:
+  schedule:
+    - cron: '0 4 * * MON'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - deploy
+    - ${{ inputs.api-user }}
+    - ${{ inputs.api-key }}
