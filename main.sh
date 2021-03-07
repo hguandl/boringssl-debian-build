@@ -3,11 +3,9 @@
 CTRL_BASE="/root/nginx-quic-debian-build"
 TODAY=$(TZ='Asia/Shanghai' date "+%Y%m%d")
 
-source boringssl.sh
-source nginx.sh
-source upload.sh
-
-ls $CTRL_BASE
+source $CTRL_BASE/boringssl.sh
+source $CTRL_BASE/nginx.sh
+source $CTRL_BASE/upload.sh
 
 build_only() {
   get_boringssl_src "/opt"

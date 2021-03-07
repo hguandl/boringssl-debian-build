@@ -21,6 +21,5 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 COPY . /root/nginx-quic-debian-build
 WORKDIR /root/nginx-quic-debian-build
-RUN ls /root/nginx-quic-debian-build
 
 ENTRYPOINT [ "/root/nginx-quic-debian-build/main.sh" ]
