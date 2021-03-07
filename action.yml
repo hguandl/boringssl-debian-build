@@ -9,10 +9,6 @@ inputs:
     desciption: 'API token for the user in Bintray'
     required: true
 
-on:
-  schedule:
-    - cron: '0 4 * * MON'
-
 runs:
   using: 'docker'
   image: 'Dockerfile'

@@ -1,0 +1,15 @@
+on:
+  schedule:
+    - cron: '0 4 * * MON'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build and upload deb package
+    steps:
+    - name: deploy
+      id: deploy
+      uses: hguandl/nginx-quic-Build
+      with:
+        api-user: 'hguandl'
+        api-key: ${{ secrets.BINTRAY_API_KEY }}
